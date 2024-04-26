@@ -6,13 +6,14 @@ public class UpMetricHandler {
     private static final String JOB_DESCRIPTION = System.getenv("JOB_DESCRIPTION");
     private static final String JOB = System.getenv("JOB");
     private static final String INSTANCE = System.getenv("INSTANCE");
+    private static final String SRV_URL = System.getenv("URL");
 
     public static void sendUp() {
         String fetchWorkTimeUp = "# HELP up " + JOB_DESCRIPTION +
                 "\n# TYPE up gauge" +
                 "\nup 1";
 
-        String URI = "http://host.docker.internal:9091/metrics/job/" + JOB + "/instance/" + INSTANCE;
+        String URI = SRV_URL + "/metrics/job/" + JOB + "/instance/" + INSTANCE;
         String metrics = fetchWorkTimeUp + "\n";
 
         System.out.println("Sending up request...");

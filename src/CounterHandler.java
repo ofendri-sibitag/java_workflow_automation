@@ -11,6 +11,7 @@ public class CounterHandler {
     private static final String JOB = System.getenv("JOB");
     private static final String INSTANCE = System.getenv("INSTANCE");
     private static final String METRIC_NAME = "my_metric_count";
+    private static final String SRV_URL = System.getenv("URL");
 
     public static void sendEvent() {
         updateFile();
@@ -23,7 +24,7 @@ public class CounterHandler {
                     "\n# TYPE " + METRIC_NAME + " counter" +
                     "\n" + METRIC_NAME + " " + counter;
 
-            String URI = "http://host.docker.internal:9091/metrics/job/" + JOB + "/instance/" + INSTANCE;
+            String URI = SRV_URL + "/metrics/job/" + JOB + "/instance/" + INSTANCE;
             String metrics = fetchWorkTimeUp + "\n";
 
             System.out.println("Sending counter request...");
